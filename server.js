@@ -11,13 +11,14 @@ const projectRoutes = require("./routes/projectRoutes")
 const jobRoutes = require("./routes/jobRoutes")
 const meetupRoutes = require("./routes/meetupRoutes")
 
+app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
 app.use("/user",userRoutes)
 app.use("/project",projectRoutes)
 app.use("/job",jobRoutes)
-app.use("/meetups",meetupRoutes)
+app.use("/meetup",meetupRoutes)
 
 // connect to mongoose
 mongoose.connect('mongodb://localhost/project4', 
