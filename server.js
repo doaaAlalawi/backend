@@ -10,7 +10,7 @@ const userRoutes = require('./routes/userRoutes')
 const projectRoutes = require("./routes/projectRoutes")
 const jobRoutes = require("./routes/jobRoutes")
 const meetupRoutes = require("./routes/meetupRoutes")
-
+app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
