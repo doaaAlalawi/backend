@@ -18,7 +18,7 @@ app.use(express.urlencoded({ extended: false }))
 app.use("/user",userRoutes)
 app.use("/project",projectRoutes)
 app.use("/job",jobRoutes)
-app.use("/meetups",meetupRoutes)
+app.use("/meetup",meetupRoutes)
 
 // connect to mongoose
 mongoose.connect(process.env.DB_CONNECTION, 
