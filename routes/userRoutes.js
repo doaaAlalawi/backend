@@ -18,7 +18,7 @@ router.post('/register', (req, res) => {
         username: req.body.username
     }
     // Search if email exists or not
-    User.findOne({ email: req.body.email })
+    User.findOne({ $or: [{ email: req.body.email }, { username: req.body.username }] })
         .then(user => {
             // if email doesn't exist
             if (!user) {
@@ -26,14 +26,19 @@ router.post('/register', (req, res) => {
                 bcrypt.hash(req.body.password, 10, (err, hash) => {
                     newUser.password = hash
                     User.create(newUser)
-                        .then(() => res.send("user created " + newUser.email))
+                        .then(() => res.send("3"))
                         .catch(err => res.send(err))
                 })
             }
+
             // if email is exist
             else {
+                var result = "0"
+                if (user.email == req.body.email) {
+                    result = "1"
+                }
                 //maybe I should add a number in here to check
-                res.send('email is already used')
+                res.send(result)
             }
         })
         .catch(err => res.send(err))
@@ -54,12 +59,12 @@ router.post('/login', (req, res) => {
                 }
                 // if password isn't the same
                 else {
-                    res.send("password is not correct")
+                    res.send("1")
                 }
             }
             else {
                 // if email doesn't exist
-                res.send("email is not found")
+                res.send("2")
             }
         })
         .catch(err => res.send(err))
@@ -84,16 +89,28 @@ router.put('/changepass/:id', (req, res) => {
                         .catch(err => res.send(err))
                 })
             } else {
-                res.json({ msg: 'password not match' })
+                res.json('1')
             }
         }).catch(err => res.send(err))
 })
 
 //change details
 router.put('/changedetails/:id', (req, res) => {
-    User.findByIdAndUpdate(req.params.id, req.body)
-        .then((user) => res.json({ msg: 'your data is updated', user: user }))
-        .catch(err => res.send(err))
+    
+    User.findOne({ username: req.body.username })
+        .then(result => {
+            if (!result) {
+                User.findByIdAndUpdate(req.params.id, req.body)
+                    .then( user => res.json({msg:"2",user:user}))
+                    .catch(err => res.send(err))
+            } else {
+                res.json({msg:"1"})
+            }
+        }
+        )
+        .catch(err => res.json(err))
+
+
 })
 
 // for update token after edit data 
@@ -111,6 +128,14 @@ router.post('/edit/token', (req, res) => {
             }
         })
         .catch(err => res.send(err))
+})
+
+//get a user by username
+router.get('/username/:username',(req,res)=>{
+    
+    User.findOne({username:req.params.username})
+    .then(result=>res.json(result))
+    .catch(err=>res.json(err))
 })
 
 module.exports = router
