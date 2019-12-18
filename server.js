@@ -10,6 +10,7 @@ const userRoutes = require('./routes/userRoutes')
 const projectRoutes = require("./routes/projectRoutes")
 const jobRoutes = require("./routes/jobRoutes")
 const meetupRoutes = require("./routes/meetupRoutes")
+const UserInfoRoutes = require("./routes/UserInfoRoutes")
 
 app.use(cors())
 app.use(express.json())
@@ -19,6 +20,8 @@ app.use("/user",userRoutes)
 app.use("/project",projectRoutes)
 app.use("/job",jobRoutes)
 app.use("/meetup",meetupRoutes)
+app.use("/UserInfoRoutes",UserInfoRoutes)
+
 
 // connect to mongoose
 mongoose.connect("mongodb://localhost/project4",   //process.env.DB_CONNECTION, 
