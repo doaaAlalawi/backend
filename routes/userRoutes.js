@@ -51,8 +51,6 @@ router.post('/register', (req, res) => {
 
     }else{
 
-            console.log("BBBBBBBBBBBBB")
-
              // Search if email exists or not
     User.findOne({ email: req.body.email})
     .then(user => {
@@ -129,10 +127,9 @@ router.put('/changepass/:id', (req, res) => {
 
 //change details
 router.put('/changedetails/:id', (req, res) => {
-    
-    User.findOne({ username: req.body.username })
+    User.findOne({$and: [{ username: req.body.username },{_id:{$ne:req.params.id}}]})
         .then(result => {
-            if (!result) {
+            if (!result || !result.username) {
                 User.findByIdAndUpdate(req.params.id, req.body)
                     .then( user => res.json({msg:"2",user:user}))
                     .catch(err => res.send(err))

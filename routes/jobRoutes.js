@@ -94,7 +94,6 @@ router.get("/:id", (req, res) => {
 //get all jobs
 router.get("/", (req, res) => {
     // status : "unassigned"
-    console.log("BLAHHHHHHHHHHH")
     Jobs.find()
         .then((m) => { 
             res.json(m) })
