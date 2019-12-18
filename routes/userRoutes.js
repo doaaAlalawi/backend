@@ -15,7 +15,8 @@ router.post('/register', (req, res) => {
         password: req.body.password,
         role: req.body.role,
         link: req.body.link,
-        username: req.body.username
+        username: req.body.username,
+        img:req.body.img
     }
     // Search if email exists or not
     User.findOne({ $or: [{ email: req.body.email }, { username: req.body.username }] })
@@ -26,11 +27,10 @@ router.post('/register', (req, res) => {
                 bcrypt.hash(req.body.password, 10, (err, hash) => {
                     newUser.password = hash
                     User.create(newUser)
-                        .then(() => res.send("3"))
+                        .then((u) => res.send({msg:"3",userid:u._id,username:u.username}))
                         .catch(err => res.send(err))
                 })
             }
-
             // if email is exist
             else {
                 var result = "0"
@@ -38,7 +38,7 @@ router.post('/register', (req, res) => {
                     result = "1"
                 }
                 //maybe I should add a number in here to check
-                res.send(result)
+                res.send({msg:result})
             }
         })
         .catch(err => res.send(err))
@@ -109,8 +109,6 @@ router.put('/changedetails/:id', (req, res) => {
         }
         )
         .catch(err => res.json(err))
-
-
 })
 
 // for update token after edit data 
@@ -135,6 +133,20 @@ router.get('/username/:username',(req,res)=>{
     
     User.findOne({username:req.params.username})
     .then(result=>res.json(result))
+    .catch(err=>res.json(err))
+})
+
+//get user by id
+router.get("/:id",(req,res)=>{
+    User.findById(req.params.id)
+    .then(result=>res.json(result))
+    .catch(err=>res.json(err))
+
+})
+
+router.get("/",(req,res)=>{
+    User.find()
+    .then(r=>res.json(r))
     .catch(err=>res.json(err))
 })
 
