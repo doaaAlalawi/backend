@@ -18,6 +18,12 @@ router.post('/register', (req, res) => {
         username: req.body.username,
         img:req.body.img
     }
+    console.log("USERNAME")
+    console.log(req.body.username)
+
+    if(req.body.username){
+    
+
     // Search if email exists or not
     User.findOne({ $or: [{ email: req.body.email }, { username: req.body.username }] })
         .then(user => {
@@ -42,6 +48,33 @@ router.post('/register', (req, res) => {
             }
         })
         .catch(err => res.send(err))
+
+    }else{
+
+            console.log("BBBBBBBBBBBBB")
+
+             // Search if email exists or not
+    User.findOne({ email: req.body.email})
+    .then(user => {
+        // if email doesn't exist
+        if (!user) {
+            // hashing step
+            bcrypt.hash(req.body.password, 10, (err, hash) => {
+                newUser.password = hash
+                User.create(newUser)
+                    .then((u) => res.send({msg:"3",userid:u._id}))
+                    .catch(err => res.send(err))
+            })
+        }
+        // if email is exist
+        else {
+            res.send({msg:"1"})
+        }
+    })
+    .catch(err => res.send(err))
+
+
+        }
 })
 
 // Login steps (1-login) 
