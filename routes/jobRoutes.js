@@ -93,8 +93,11 @@ router.get("/:id", (req, res) => {
 
 //get all jobs
 router.get("/", (req, res) => {
+    // status : "unassigned"
+    console.log("BLAHHHHHHHHHHH")
     Jobs.find()
-        .then((m) => { res.json(m) })
+        .then((m) => { 
+            res.json(m) })
         .catch((err) => {
             res.json({ error: err });
         });
