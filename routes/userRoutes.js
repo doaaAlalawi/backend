@@ -30,7 +30,6 @@ router.post('/register', (req, res) => {
                         .catch(err => res.send(err))
                 })
             }
-
             // if email is exist
             else {
                 var result = "0"
@@ -49,7 +48,7 @@ router.post('/login', (req, res) => {
     //check email is exist or not
     User.findOne({ email: req.body.email })
         .then(user => {
-            // if email is exist
+            // if email doesn't exist
             if (user) {
                 if (bcrypt.compareSync(req.body.password, user.password)) {
                     user.password = "" //  "" we don't want password to appear
@@ -109,8 +108,6 @@ router.put('/changedetails/:id', (req, res) => {
         }
         )
         .catch(err => res.json(err))
-
-
 })
 
 // for update token after edit data 
@@ -139,3 +136,4 @@ router.get('/username/:username',(req,res)=>{
 })
 
 module.exports = router
+ 

@@ -47,8 +47,6 @@ router.delete("/:id", (req, res) => {
 
 //update a specific project
 router.put("/:id", (req, res) => {
-
-
   // let projectUpdate = {
   //   title: req.body.title,
   //   image:req.body.image,
@@ -65,7 +63,6 @@ router.put("/:id", (req, res) => {
     .catch(err => { res.json(err) })
 })
 
-
 //get all projects  ---- I don't need this route for now -- delete later
 router.get("/", (req, res) => {
   Project.find()
@@ -73,7 +70,6 @@ router.get("/", (req, res) => {
     .catch((err) => {
       res.json({ error: err });
     });
-
 })
 
 module.exports = router

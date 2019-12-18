@@ -21,7 +21,7 @@ app.use("/job",jobRoutes)
 app.use("/meetup",meetupRoutes)
 
 // connect to mongoose
-mongoose.connect(process.env.DB_CONNECTION, 
+mongoose.connect("mongodb://localhost/project4",   //process.env.DB_CONNECTION, 
 {useNewUrlParser : true , useUnifiedTopology: true } )
 .then(()=> console.log('Mongodb is running'),(err)=> console.log(err) )
 
