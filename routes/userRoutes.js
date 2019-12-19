@@ -169,7 +169,9 @@ router.get('/username/:username',(req,res)=>{
 //get user by id
 router.get("/:id",(req,res)=>{
     User.findById(req.params.id)
-    .then(result=>res.json(result))
+    .then(result=>{
+        console.log(result)
+        res.json(result)})
     .catch(err=>res.json(err))
 
 })
