@@ -20,9 +20,11 @@ app.use("/UserInfoRoutes",UserInfoRoutes)
 app.use("/project",projectRoutes)
 app.use("/job",jobRoutes)
 app.use("/meetup",meetupRoutes)
+app.use("/UserInfoRoutes",UserInfoRoutes)
+
 
 // connect to mongoose
-mongoose.connect('mongodb://localhost/project4', 
+mongoose.connect('mongodb://localhost/project5', 
 {useNewUrlParser : true , useUnifiedTopology: true } )
 .then(()=> console.log('Mongodb is running'),(err)=> console.log(err) )
 

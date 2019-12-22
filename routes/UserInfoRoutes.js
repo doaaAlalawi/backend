@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const UserInfo = require('../models/UserInfo');
-
 //create Info
 router.post("/create", (req, res) => {
   let Info = new UserInfo()
@@ -13,9 +12,9 @@ router.post("/create", (req, res) => {
   Info.linkdin =  req.body.linkdin
   Info.twitter =  req.body.twitter
   Info.education= req.body.education
-
+  
   Info.save()
-    .then((r) => res.json(r))
+    .then((r) => {res.json(r)})
     .catch(err => res.json(err))
 })
 
@@ -25,21 +24,10 @@ router.get("/:id", (req, res) => {
     .populate('user')
     .then(p => res.json(p))
     .catch(err => res.json(err))
-    
 })
 
 //update a specific project
 router.put("/:id", (req, res) => {
-
-
-  // let projectUpdate = {
-  //   title: req.body.title,
-  //   image:req.body.image,
-  //   github: req.body.github,
-  //   link: req.body.link,
-  //   description: req.body.description
-  // }
-
   Info.findByIdAndUpdate(req.params.id, req.body, (err, updatedModel) => {
     if (err)
       res.json(err)
@@ -54,7 +42,5 @@ router.get("/",(req,res)=>{
     .then(r=>res.json(r))
     .catch(err=>res.json(err))
 })
-
 //get all projects  ---- I don't need this route for now -- delete later
-
 module.exports = router
