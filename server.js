@@ -11,7 +11,25 @@ const projectRoutes = require("./routes/projectRoutes")
 const jobRoutes = require("./routes/jobRoutes")
 const meetupRoutes = require("./routes/meetupRoutes")
 const UserInfoRoutes = require("./routes/UserInfoRoutes")
-app.use(cors())
+const PORT = process.env.PORT || 5000;
+
+
+var allowedOrigins = ["http://localhost:5000", "https://project3-shalihat.herokuapp.com"];
+
+
+app.use(cors({
+    origin: function(origin, callback) {
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.indexOf(origin) === -1) {
+        var message =
+          "The CORS policy for this application does not allow access from origin " +
+          origin;
+        return callback(new Error(message), false);
+      }
+      return callback(null, true);
+    }
+  } 
+  ))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
