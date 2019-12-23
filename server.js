@@ -5,19 +5,18 @@ const dotenv = require("dotenv/config");
 const session = require('express-session')
 const cors = require('cors')
 const path = require('path')
-
 const userRoutes = require('./routes/userRoutes')
 const projectRoutes = require("./routes/projectRoutes")
 const jobRoutes = require("./routes/jobRoutes")
 const meetupRoutes = require("./routes/meetupRoutes")
 const UserInfoRoutes = require("./routes/UserInfoRoutes")
 const PORT = process.env.PORT || 5000;
+const DB = process.env.DB_CONNECT;
 
+var allowedOrigins = ["http://localhost:5000", "https://git.heroku.com/community-for-developer.git"];
 
-var allowedOrigins = ["http://localhost:5000", "https://project3-shalihat.herokuapp.com"];
-
-
-app.use(cors({
+app.use(
+  cors({
     origin: function(origin, callback) {
       if (!origin) return callback(null, true);
       if (allowedOrigins.indexOf(origin) === -1) {
@@ -28,8 +27,11 @@ app.use(cors({
       }
       return callback(null, true);
     }
-  } 
-  ))
+  })
+);
+
+
+
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
@@ -42,8 +44,8 @@ app.use("/UserInfoRoutes",UserInfoRoutes)
 
 
 // connect to mongoose
-mongoose.connect('mongodb://localhost/project5', 
+mongoose.connect(DB , 
 {useNewUrlParser : true , useUnifiedTopology: true } )
 .then(()=> console.log('Mongodb is running'),(err)=> console.log(err) )
 
-app.listen(5000, () => console.log("express running"));
+app.listen(PORT, () => console.log("express running"));
