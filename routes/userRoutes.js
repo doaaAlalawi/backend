@@ -4,7 +4,6 @@ const User = require('../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const dotenv = require("dotenv/config")
-
 //register new user
 router.post('/register', (req, res) => {
     const newUser = {
@@ -74,7 +73,6 @@ router.post('/register', (req, res) => {
 
         }
 })
-
 // Login steps (1-login) 
 router.post('/login', (req, res) => {
     //check email is exist or not
@@ -100,14 +98,12 @@ router.post('/login', (req, res) => {
         })
         .catch(err => res.send(err))
 })
-
 // Logout steps
 router.get('/logout', (req, res) => {
     req.logout();
     req.flash('success_msg', 'You are logged out');
     // res.redirect('/user/login');
 });
-
 // change password (1-ch)
 router.put('/changepass/:id', (req, res) => {
     User.findById(req.params.id)
@@ -124,7 +120,6 @@ router.put('/changepass/:id', (req, res) => {
             }
         }).catch(err => res.send(err))
 })
-
 //change details
 router.put('/changedetails/:id', (req, res) => {
     User.findOne({$and: [{ username: req.body.username },{_id:{$ne:req.params.id}}]})
@@ -140,7 +135,6 @@ router.put('/changedetails/:id', (req, res) => {
         )
         .catch(err => res.json(err))
 })
-
 // for update token after edit data 
 router.post('/edit/token', (req, res) => {
     User.findOne({ email: req.body.email })
@@ -158,9 +152,9 @@ router.post('/edit/token', (req, res) => {
         .catch(err => res.send(err))
 })
 
+
 //get a user by username
 router.get('/username/:username',(req,res)=>{
-    
     User.findOne({username:req.params.username})
     .then(result=>res.json(result))
     .catch(err=>res.json(err))
