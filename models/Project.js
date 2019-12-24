@@ -8,10 +8,7 @@ const projectSchema = new Schema(
         image: String,
         github: String,
         link:String,
-        user: {
-            type: Schema.Types.ObjectId,
-            ref: "Users"
-        }
+        user: { type: Schema.Types.ObjectId, ref: "Users" }
     },
     { timestamps: true });
 

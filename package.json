@@ -1,10 +1,10 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
   },
   "author": "",
   "license": "ISC",
@@ -16,5 +16,15 @@
     "express-session": "^1.17.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.8.1"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/team-DDW/Node-backend.git"
+  },
+  "keywords": [],
+  "bugs": {
+    "url": "https://github.com/team-DDW/Node-backend/issues"
+  },
+  "homepage": "https://github.com/team-DDW/Node-backend#readme",
+  "description": ""
 }
